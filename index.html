@@ -1,6 +1,7 @@
 <html oncontextmenu="return false" lang="es">
 <head>
   <meta name="viewport" charset="UTF-8" content="width=device-width, initial-scale=1.0,">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cutorline14</title>
   <link rel="stylesheet" href="style.css">
   <link rel="shortcut icon" type="image/x-icon" href="assets/images/x.ico">
@@ -71,8 +72,20 @@
     font-size: 15px;
     color: #39ff14;
   }
+
+  .container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+  @media (max-width: 600px) {
+        .container {
+          flex-direction: column;
+        }
+      }
 </style>
   <canvas id="particle-canvas"></canvas>
+<div class="container">
   <img id="image" src="logo.png" alt="image">
 </div>
 <div id="links">
