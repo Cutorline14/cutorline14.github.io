@@ -1,0 +1,153 @@
+<html oncontextmenu="return false" lang="es">
+<head>
+  <meta name="viewport" charset="UTF-8" content="width=device-width, initial-scale=1.0,">
+  <title>Cutorline14</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" type="image/x-icon" href="assets/images/x.ico">
+  <body>
+       <!-- site made by Cutorline14-->
+	<audio id="music">
+  	<source src="assets/audio/Acid_Tribe.mp3" type="audio/mpeg">
+	</audio>
+       <!-- site made by Cutorline14-->
+  </body>
+  <style>
+     body {
+    margin: 0;
+    overflow: hidden;
+  }
+
+  #particle-canvas {
+    background: black;
+  }
+
+  #text {
+    position: absolute;
+    top: 6;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 6px;
+    color: #39ff14;
+  }
+
+  #image {
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  #links {
+    position: absolute;
+    bottom: 335;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 17px;
+    color: #51080c;
+  }
+
+  #copyright {
+    position: absolute;
+    bottom: 5;
+    left: -40;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    color: #39ff14;
+  }
+
+  #links a {
+    color: #96080f;
+  }
+
+  #credits {
+    position: absolute;
+    bottom: 0;
+    left: 225;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    color: #39ff14;
+  }
+</style>
+  <canvas id="particle-canvas"></canvas>
+  <img id="image" src="logo.png" alt="image">
+</div>
+<div id="links">
+  <a style="text-decoration: none" target="_blank" href="https://steamcommunity.com/id/Cutorline14/">Steam</a> | <a style="text-decoration: none" target="_blank" href="https://on.soundcloud.com/Gx8JZ">SoundCloud</a> | <a style="text-decoration: none" target="_blank" href="https://www.twitch.tv/cutorline14_tw">Twitch</a> | <a style="text-decoration: none" target="_blank" href="https://es.namemc.com/profile/Cutorline14">Minecraft</a>
+  <script>
+  var audio = document.getElementById("music");
+  var playButton = document.getElementById("image");
+
+  playButton.addEventListener("click", function() {
+    if (audio.paused) {
+      audio.loop = true;
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  });
+</script>
+
+  <script>
+
+    const canvas = document.getElementById('particle-canvas');
+  
+
+    const ctx = canvas.getContext('2d');
+  
+
+    canvas.width = 1920;
+    canvas.height = 1080;
+  
+
+    const particles = [];
+    for (let i = 0; i < 300; i++) {
+      const x = Math.random() * canvas.width;
+      const y = Math.random() * canvas.height;
+      const radius = 0.5 + Math.random();
+      const dx = (Math.random() - 0.5) * 2;
+      const dy = (Math.random() - 0.5) * 2;
+      particles.push({ x, y, radius, dx, dy });
+    }
+  
+
+    function draw() {
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#ff0000';
+  
+      particles.forEach(particle => {
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+        ctx.fill();
+  
+        particle.x += particle.dx;
+        particle.y += particle.dy;
+  
+        if (particle.x < 0) {
+          particle.x += canvas.width;
+        }
+        if (particle.y < 0) {
+          particle.y += canvas.height;
+        }
+        if (particle.x > canvas.width) {
+          particle.x -= canvas.width;
+        }
+        if (particle.y > canvas.height) {
+          particle.y -= canvas.height;
+        }
+      });
+  
+
+      requestAnimationFrame(draw);
+    }
+  
+    requestAnimationFrame(draw);
+  </script>
+
+
+</html>
