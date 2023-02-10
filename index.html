@@ -41,7 +41,7 @@
   #links {
     position: absolute;
     bottom: 335;
-    top: 62%;
+    top: 63%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 18px;
@@ -99,12 +99,12 @@
     const ctx = canvas.getContext('2d');
   
 
-    canvas.width = 1920;
-    canvas.height = 1080;
+    canvas.width = 9000;
+    canvas.height = 6000;
   
 
     const particles = [];
-    for (let i = 0; i < 300; i++) {
+    for (let i = 0; i < 3000; i++) {
       const x = Math.random() * canvas.width;
       const y = Math.random() * canvas.height;
       const radius = 0.5 + Math.random();
