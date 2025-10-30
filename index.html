@@ -1,133 +1,117 @@
+<!DOCTYPE html>
 <html oncontextmenu="return false" lang="es">
 <head>
-  <meta name="viewport" charset="UTF-8" content="width=device-width, initial-scale=1.0,">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cutorline14</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="shortcut icon" type="image/x-icon" href="assets/images/x.ico">
-  <body>
-       <!-- site made by Cutorline14-->
-	<audio id="music">
-  	<source src="assets/audio/Acid_Tribe.mp3" type="audio/mpeg">
-	</audio>
-       <!-- site made by Cutorline14-->
-  </body>
+  <link rel="icon" href="assets/images/server.gif" type="image/gif">
   <style>
-     body {
-    margin: 0;
-    overflow: hidden;
-  }
-
-  #particle-canvas {
-    background: black;
-  }
-
-  #text {
-    position: absolute;
-    top: 6;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    font-size: 6px;
-    color: #39ff14;
-  }
-
-  #image {
-    position: absolute;
-    top: 48%;
-    left: 49.5%;
-    transform: translate(-50%, -50%);
-  }
-
-  #links {
-    position: absolute;
-    bottom: 335;
-    top: 62.6%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 17px;
-    color: #51080c;
-  }
-
-  #copyright {
-    position: absolute;
-    bottom: 5;
-    left: -40;
-    width: 100%;
-    text-align: center;
-    font-size: 15px;
-    color: #39ff14;
-  }
+    body {
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      background: black;
+      color: #39ff14;
+    }
+    #particle-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    #image {
+      cursor: pointer;
+      margin-bottom: 50px;
+    }
+    
+    #links {
+      text-align: center;
+      font-size: 17px;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
 
   #links a {
     color: #96080f;
+    text-decoration: none;
   }
 
-  #credits {
-    position: absolute;
-    bottom: 0;
-    left: 225;
-    width: 100%;
-    text-align: center;
-    font-size: 15px;
-    color: #39ff14;
+  #links a:not(:last-child):after {
+    content: "|";
+    color: #96080f;
+    margin: 0 10px;
   }
-</style>
+  </style>
+</head>
+<body>
+  <audio id="music">
+    <source src="assets/audio/Acid_Tribe.mp3" type="audio/mpeg">
+  </audio>
   <canvas id="particle-canvas"></canvas>
   <img id="image" src="logo.png" alt="image">
-</div>
-<div id="links">
-  <a style="text-decoration: none" target="_blank" href="https://steamcommunity.com/id/Cutorline14/">Steam</a> | <a style="text-decoration: none" target="_blank" href="https://on.soundcloud.com/Gx8JZ">SoundCloud</a> | <a style="text-decoration: none" target="_blank" href="https://www.twitch.tv/cutorline14_tw">Twitch</a> | <a style="text-decoration: none" target="_blank" href="https://es.namemc.com/profile/Cutorline14">Minecraft</a>
+  <div id="links">
+    <a href="https://steamcommunity.com/id/Cutorline14/">Steam</a>
+    <a href="https://on.soundcloud.com/Gx8JZ">SoundCloud</a>
+    <a href="https://www.twitch.tv/cutorline14_tw">Twitch</a>
+    <a href="https://es.namemc.com/profile/Cutorline14">Minecraft</a>
+  </div>
   <script>
-  var audio = document.getElementById("music");
-  var playButton = document.getElementById("image");
+    var audio = document.getElementById("music");
+    var playButton = document.getElementById("image");
 
-  playButton.addEventListener("click", function() {
-    if (audio.paused) {
-      audio.loop = true;
-      audio.play();
-    } else {
-      audio.pause();
-    }
-  });
-</script>
-
-  <script>
+    playButton.addEventListener("click", function() {
+      if (audio.paused) {
+        audio.loop = true;
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
 
     const canvas = document.getElementById('particle-canvas');
-  
-
     const ctx = canvas.getContext('2d');
-  
 
-    canvas.width = 8000;
-    canvas.height = 4000;
-  
+    let particles = [];
+    const numParticles = 300;
 
-    const particles = [];
-    for (let i = 0; i < 4000; i++) {
-      const x = Math.random() * canvas.width;
-      const y = Math.random() * canvas.height;
-      const radius = 0.5 + Math.random();
-      const dx = (Math.random() - 0.5) * 2;
-      const dy = (Math.random() - 0.5) * 2;
-      particles.push({ x, y, radius, dx, dy });
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < numParticles; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const radius = 0.5 + Math.random();
+        const dx = (Math.random() - 0.5) * 2;
+        const dy = (Math.random() - 0.5) * 2;
+        particles.push({ x, y, radius, dx, dy });
+      }
     }
-  
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initParticles();
+    }
 
     function draw() {
-
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
       ctx.fillStyle = '#ff0000';
-  
+
       particles.forEach(particle => {
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
         ctx.fill();
-  
+
         particle.x += particle.dx;
         particle.y += particle.dy;
-  
+
         if (particle.x < 0) {
           particle.x += canvas.width;
         }
@@ -141,12 +125,14 @@
           particle.y -= canvas.height;
         }
       });
-  
 
       requestAnimationFrame(draw);
     }
-  
+
+    window.addEventListener('resize', resizeCanvas);
+
+    resizeCanvas();
     requestAnimationFrame(draw);
   </script>
-
+</body>
 </html>
